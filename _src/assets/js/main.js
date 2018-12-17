@@ -5,6 +5,7 @@ const listResult = document.querySelector('.list__results');
 //obtener el elemento botón y añadirle un listener
 const button = document.querySelector('.btn');
 
+
 const handleButton = () => {
   //recoger la palabra escrita por el usuario
   const userSearch = document.querySelector('.input__name').value;
@@ -46,4 +47,24 @@ function draw (seriesResponse){
     </li>`;
     }
   }
+  loveListener();
+}
+//añadir evento click a cada elemento heart creado
+function loveListener(){
+  const loves = document.querySelectorAll('.heart');
+  for(const lovelyHeart of loves){
+    lovelyHeart.addEventListener('click',addFavorite);
+  }
+}
+
+//comprobar si el elemento padre tiene la clase favorite y si no la tiene añadirla
+function addFavorite (e){
+  const parent = e.currentTarget.parentElement;
+  if(!parent.classList.contains('favorite')){
+    parent.classList.add('favorite');
+    //al volver al ejecutar la función, si tiene la clase favorite, la elimina
+  }else{
+    parent.classList.remove('favorite');
+  }
+
 }
