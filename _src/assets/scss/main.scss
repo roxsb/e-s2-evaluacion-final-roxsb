@@ -51,15 +51,19 @@ margin-top:15px;
 
 .serie__title{
 color:	#9B153B;
+font-size: 18px;
+margin-bottom: 0;
+max-width: 150px;
+// overflow: hidden;
+// text-overflow: ellipsis;
+// white-space: nowrap;
 }
 
 .serie__image{
 width:150px;
-height: 200px;
 }
 
 .heart{
-  margin-top:10px;
   font-size: 30px;
   color:rgb(133, 44, 69);
 }
