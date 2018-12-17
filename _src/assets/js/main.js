@@ -1,52 +1,50 @@
 'use strict';
 
-console.log('>> Ready :)');
-
-'use strict';
-
 //comprobar que funciona el js
-console.log('>> Ready :)');
+
 const pepi = document.querySelector('.page__title');
 pepi.innerHTML = 'Buscador de unicornios';
 
+//obtener el contenedor donde se pintará la lista
+const listResult = document.querySelector('.list__results');
 
-//recoger la palabra escrita por el usuario
-const userSearch = document.querySelector('.input__name');
-console.log(userSearch);
+//llamar a la API y crear una función para hacer la llamada a la Api según la búsqueda
 
+function search (searchName){
 
-//llamar a la API
+  fetch('http://api.tvmaze.com/search/shows?q=' + searchName)
+    .then(function(response) {
+      return response.json();
+    })
+    .then((seriesResponse) => {
+      //Por cada elemento encontrado pintar una tarjeta
+      for (const x of seriesResponse) {
+        listResult.innerHTML +=
+        `<li class="list__element">
+          <h2 class="serie__title">${x.show.name}</h2>
+          <img class="serie__image" src="${x.show.image}" alt="${x.show.title}">
+        </li>`;
+      }
+    });
 
-fetch('http://api.tvmaze.com/search/shows?q=')
-  .then(seriesResponse => seriesResponse.json())
-  .then(seriesData => {
-    //añadir la palabra buscada a la url
-    const data = seriesData.message;
-      return fetch('http://api.tvmaze.com/search/shows?q=' + data[0] + 'http://static.tvmaze.com/uploads/images/medium_portrait/');
-  })
-    //   "show":""{
-    //   "name":"",
-    //   "imagen":"",
-    // }};
+}
 
-    //Por cada elemento encontrado pintar una tarjeta
-    for (const x of data) {
-      listResult.innerHTML +=
-      `<li class="list__element">
-        <h2 class="serie__title">${x.name}</h2>
-        <img class="serie__image" src="${x.image}" alt="${x.title}">
-      </li>`;
-  };
-
-
-
-//evento del botón
+//obtener el elemento botón y añadirle un listener
 const button = document.querySelector('.btn');
-const handleButton = () =>
-// console.log('hola, soy un botón y te hago caso');
-console.log(userSearch);
+const handleButton = () => {
+  //recoger la palabra escrita por el usuario
+  const userSearch = document.querySelector('.input__name').value;
+  console.log(userSearch);
+  search(userSearch);
+};
+
 button.addEventListener('click', handleButton);
 
+// .then((seriesData) => {
+  //   //añadir la palabra buscada a la url
+  //   const data = seriesData.message;
+  //   return fetch('http://api.tvmaze.com/search/shows?q=' + data[0] + 'http://static.tvmaze.com/uploads/images/medium_portrait/');
+  // });
 
 // const button = document.querySelector('.btn')[0];
 // button.addEventListener('click',function(event){
