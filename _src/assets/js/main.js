@@ -30,10 +30,23 @@ function search (searchName){
 //pintar los resultados obtenidos según la búsqueda
 function draw (seriesResponse){
   for (const x of seriesResponse) {
-    listResult.innerHTML +=
-    `<li class="list__element">
+    // si existe image, pinta la url medium
+    if (x.show.image) {
+      listResult.innerHTML +=`<li class="list__element">
       <h2 class="serie__title">${x.show.name}</h2>
       <img class="serie__image" src="${x.show.image.medium}" alt="${x.show.name}">
     </li>`;
+    //si no existe,pinta la imagen predeterminada
+    } else {
+      listResult.innerHTML +=`<li class="list__element">
+      <h2 class="serie__title">${x.show.name}</h2>
+      <img class="serie__image" src="https://via.placeholder.com/210x295/cccccc/666666/?text=TV" alt="${x.show.name}">
+    </li>`;
+    }
   }
 }
+
+
+
+
+
